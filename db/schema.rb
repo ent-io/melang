@@ -13,6 +13,13 @@
 
 ActiveRecord::Schema.define(:version => 20120908003921) do
 
+  create_table "apps", :force => true do |t|
+    t.string   "name"
+    t.string   "git_url"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "roles", :force => true do |t|
     t.string   "name"
     t.integer  "resource_id"
