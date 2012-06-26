@@ -1,5 +1,4 @@
-h1 New app
-
-== render 'form'
-
-= link_to 'Back', apps_path
+- model_class = @app.class
+div class="page-header"
+  h1=t '.title', :default => t('helpers.titles.new', :model => model_class.model_name.human, :default => "New #{model_class.model_name.human}")
+= render :partial => "form"
