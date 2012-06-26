@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @app.name
+p
+  strong Git url:
+  = @app.git_url
+
+= link_to 'Edit', edit_app_path(@app)
+'|
+= link_to 'Back', apps_path
