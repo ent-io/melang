@@ -1,7 +1,25 @@
+- model_class = @app.class
+
 = simple_form_for @app, :html => { :class => "form-horizontal" } do |f|
-  = f.input :name
-  = f.input :git_url
+  = f.input :name, :wrapper => :prepend, :label => false do
+    span.add-on
+      i.icon-large.icon-folder-open
+    = f.input_field :name,                                                    \
+      :required => true,                                                      \
+      :placeholder => model_class.human_attribute_name(:name)
+  = f.input :git_url, :wrapper => :prepend, :label => false do
+    span.add-on
+      i.icon-large.icon-link
+    = f.url_field :git_url,                                                   \
+      :required => true,                                                      \
+      :placeholder => model_class.human_attribute_name(:git_url)
   .form-actions
+    / button.btn.btn-primary*{'type'=>'submit'}
+    /   i.icon-large.icon-ok
+    /   ' Create / Update App
     = f.submit nil, :class => 'btn btn-primary'
     '
-    = link_to t('.cancel', :default => t("helpers.links.cancel")), apps_path, :class => 'btn'
+    = link_to apps_path, :class => 'btn' do
+      / i.icon-large.icon-remove
+      / '
+      = t('.cancel', :default => t("helpers.links.cancel"))
