@@ -33,6 +33,7 @@ end
 group :development, :test do
   gem 'debugger',               '>= 1.2.0'
   gem 'rspec-rails',            '>= 2.11.0'
+  gem 'fuubar',                 '>= 1.0.0'
   gem 'factory_girl_rails',     '>= 4.0.0'
 
   platforms :jruby do
