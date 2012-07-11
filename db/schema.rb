@@ -11,14 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120908003921) do
+ActiveRecord::Schema.define(:version => 20120908003999) do
 
   create_table "apps", :force => true do |t|
-    t.string   "name"
-    t.string   "git_url"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "name",       :limit => 63, :null => false
+    t.string   "git_url",                  :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
   end
+
+  add_index "apps", ["name"], :name => "index_apps_on_name", :unique => true
 
   create_table "roles", :force => true do |t|
     t.string   "name"

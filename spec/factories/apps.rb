@@ -3,7 +3,7 @@ FactoryGirl.define do
     "app-#{n}"
   end
 
-  factory :app do |n|
+  factory :app do
     name { FactoryGirl.generate(:app_name) }
     git_url { "http://example.com/#{name}" }
   end
