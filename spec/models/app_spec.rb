@@ -37,11 +37,11 @@ describe App do
     end
 
     context 'associations' do
-      # pending { should have_many(:buckets).dependent(:destroy) }
+      it { should have_one(:bucket).dependent(:destroy) }
     end
 
     context 'attributes' do
-      # pending { should have_readonly_attribute(:secret_key) }
+      it { should have_readonly_attribute(:name) }
     end
   end
 

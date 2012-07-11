@@ -1,7 +1,10 @@
 class App < ActiveRecord::Base
-  attr_accessible :git_url, :name
+  attr_readonly   :name
+  attr_accessible :name, :git_url
 
-  DOMAIN = 'ent.io'
+  has_one :bucket, :dependent => :destroy
+
+  DOMAIN = 'cli.ent.io'
 
   validates :name,
     :presence   => :true,
@@ -18,6 +21,4 @@ class App < ActiveRecord::Base
     "#{name}.#{DOMAIN}"
   end
 
-  validates :git_url,
-    :presence   => :true
 end
