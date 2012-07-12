@@ -49,4 +49,24 @@ describe Bucket do
       it { should validate_uniqueness_of(:app_id) }
     end
   end
+
+  context '#storage' do
+    context 'service exists' do
+      let(:bucket) { FactoryGirl.create(:bucket) }
+      it { bucket.storage.key.should == bucket.name }
+    end
+    context 'service does not exist' do
+      it 'before save' do
+        bucket = FactoryGirl.build(:bucket)
+        bucket.storage.should be_nil
+      end
+      it 'after destroy' do
+        bucket = FactoryGirl.create(:bucket)
+        bucket.save
+        bucket.storage.should_not be_nil
+        bucket.send(:delete_bucket)
+        bucket.storage.should be_nil
+      end
+    end
+  end
 end

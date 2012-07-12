@@ -51,3 +51,12 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 end
+
+ENV['GOOGLE_STORAGE_ACCESS_KEY_ID']     = 'fog_mock_id'
+ENV['GOOGLE_STORAGE_SECRET_ACCESS_KEY'] = 'fog_mock_key'
+Fog.mock!
+
+# Spork.each_run do
+#   Fog::Mock.reset
+#   FactoryGirl.reload
+# end
