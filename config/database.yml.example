@@ -19,13 +19,13 @@ defaults: &defaults
   <<: *<%= ENV['DB'] || "sqlite" %>
 
 development:
-  database: db/development.sqlite3
+  database: melang_development
   <<: *defaults
 
 test:
-  database: db/test.sqlite3
+  database: melang_test
   <<: *defaults
 
 production:
-  database: db/production.sqlite3
+  database: melang_production
   <<: *defaults
