@@ -1,15 +1,16 @@
 language: ruby
 rvm:
-  - 1.8.7
   - 1.9.3
+  # - 1.8.7 # not supported
 env:
   - DB=sqlite
   - DB=mysql
   - DB=postgresql
 script:
-  - "RAILS_ENV=test bundle exec rspec && bundle exec cucumber"
+  - RAILS_ENV=test bundle exec rake db:schema:load
+  - bundle exec rspec
+  - bundle exec cucumber
 before_script:
   - mysql -e 'create database melang_test'
   - psql -c 'create database melang_test' -U postgres
   - cp config/database.yml.example config/database.yml
-  - RAILS_ENV=test bundle exec rake db:test:prepare
