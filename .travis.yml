@@ -18,3 +18,5 @@ before_script:
   - mysql -e 'create database melang_test'
   - psql -c 'create database melang_test' -U postgres
   - cp config/database.yml.example config/database.yml
+notifications:
+  campfire: entio:a340573e0942bfdbe916c2904202e3a62adf1108@532246
