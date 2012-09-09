@@ -22,6 +22,10 @@ group :production do
   gem 'thin',                   '>= 1.4.1'
 end
 
+group :development do
+  gem 'guard-rspec',            '>= 1.2.1'
+end
+
 group :test do
   gem 'capybara',               '>= 1.1.2'
   gem 'email_spec',             '>= 1.2.1'
