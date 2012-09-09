@@ -6,10 +6,6 @@ env:
   - DB=sqlite
   - DB=mysql
   - DB=postgresql
-matrix:
-  allow_failures:
-    - env: DB=mysql
-    - env: DB=postgresql
 script:
   - RAILS_ENV=test bundle exec rake db:schema:load
   - bundle exec rspec
