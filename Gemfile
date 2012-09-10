@@ -31,6 +31,8 @@ group :test do
 end
 
 group :development, :test do
+  gem 'ruby-debug',             '>= 0.10.4',  :platform => :mri_18
+  gem 'debugger',               '>= 1.2.0',   :platform => :mri_19
   gem 'rspec-rails',            '>= 2.11.0'
   gem 'factory_girl_rails',     '>= 4.0.0'
 
