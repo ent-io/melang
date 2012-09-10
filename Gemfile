@@ -17,6 +17,7 @@ gem 'rolify',                   '>= 3.2.0'
 gem 'simple_form',              '>= 2.0.2'
 gem 'google_visualr',           '>= 2.1.2'
 gem 'jquery-datatables-rails',  '>= 1.11.0'
+gem 'slim',                     '>= 1.3.0'
 
 group :production do
   gem 'thin',                   '>= 1.4.1'
