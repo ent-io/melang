@@ -46,6 +46,8 @@ group :development, :test do
   gem 'rspec-rails',            '>= 2.11.0'
   gem 'fuubar',                 '>= 1.0.0'
   gem 'factory_girl_rails',     '>= 4.0.0'
+  gem 'shoulda-matchers',       '>= 1.3.0'
+
 
   platforms :jruby do
     gem 'activerecord-jdbcsqlite3-adapter'
