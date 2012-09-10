@@ -19,7 +19,12 @@ gem 'google_visualr',           '>= 2.1.2'
 gem 'jquery-datatables-rails',  '>= 1.11.0'
 
 group :production do
-  gem 'thin',                   '>= 1.4.1'
+  platforms :ruby do
+    gem 'thin',                  '>= 1.4.1'
+  end
+  platforms :jruby do
+    gem 'trinidad', :require => nil
+  end
 end
 
 group :test do
