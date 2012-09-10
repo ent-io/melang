@@ -20,6 +20,7 @@ gem 'jquery-datatables-rails',  '>= 1.11.0'
 
 group :production do
   gem 'thin',                   '>= 1.4.1'
+  gem 'pg'
 end
 
 group :development do
