@@ -17,21 +17,24 @@ gem 'rolify',                   '>= 3.2.0'
 gem 'simple_form',              '>= 2.0.2'
 gem 'google_visualr',           '>= 2.1.2'
 gem 'jquery-datatables-rails',  '>= 1.11.0'
+gem 'slim',                     '>= 1.3.0'
 
 group :production do
   gem 'thin',                   '>= 1.4.1'
 end
 
-group :test do
-  gem 'capybara',               '>= 1.1.2'
-  gem 'email_spec',             '>= 1.2.1'
-  gem 'cucumber-rails',         '>= 1.3.0', :require => false
-  gem 'database_cleaner',       '>= 0.8.0'
+group :development do
+  gem 'guard-rspec',            '>= 1.2.1'
   gem 'launchy',                '>= 2.1.2'
 end
 
 group :development, :test do
+  gem 'email_spec',             '>= 1.2.1'
+  gem 'capybara',               '>= 1.1.2'
+  gem 'database_cleaner',       '>= 0.8.0'
+  gem 'cucumber-rails',         '>= 1.3.0', :require => false
   gem 'rspec-rails',            '>= 2.11.0'
+  gem 'fuubar',                 '>= 1.0.0'
   gem 'factory_girl_rails',     '>= 4.0.0'
 
   platforms :jruby do
