@@ -26,6 +26,8 @@ end
 group :development do
   gem 'guard-rspec',            '>= 1.2.1'
   gem 'launchy',                '>= 2.1.2'
+  gem 'ruby-debug',             '>= 0.10.4',  :platform => :mri_18
+  gem 'debugger',               '>= 1.2.0',   :platform => :mri_19
 end
 
 group :development, :test do
