@@ -20,12 +20,20 @@ gem 'jquery-datatables-rails',  '>= 1.11.0'
 gem 'slim',                     '>= 1.3.0'
 
 group :production do
-  gem 'thin',                   '>= 1.4.1'
+  platforms :ruby do
+    gem 'thin',                   '>= 1.4.1'
+  end
+
+  platforms :jruby do
+    gem 'trinidad', :require => nil
+  end
 end
 
 group :development do
   gem 'guard-rspec',            '>= 1.2.1'
   gem 'launchy',                '>= 2.1.2'
+  gem 'ruby-debug',             '>= 0.10.4',  :platform => :mri_18
+  gem 'debugger',               '>= 1.2.0',   :platform => :mri_19
 end
 
 group :development, :test do
