@@ -22,11 +22,13 @@ gem 'slim',                     '>= 1.3.0'
 group :production do
   platforms :ruby do
     gem 'thin',                   '>= 1.4.1'
+    gem 'pg'
   end
 
   platforms :jruby do
     gem 'trinidad', :require => nil
   end
+  gem 'newrelic_rpm'
 end
 
 group :development do
@@ -70,29 +72,29 @@ group :development, :test do
     unless ENV['TRAVIS']
       gem 'mailcatcher'
       
-      require 'rbconfig'
-      if RbConfig::CONFIG['target_os'] =~ /darwin/i
-        gem 'rb-fsevent', '>= 0.3.9'
-        gem 'growl',      '~> 1.0.3'
-      end
-      if RbConfig::CONFIG['target_os'] =~ /linux/i
-        gem 'rb-inotify', '>= 0.5.1'
-        gem 'libnotify',  '~> 0.1.3'
-        gem 'therubyracer', '~> 0.9.9'
-      end
+      # require 'rbconfig'
+      # if RbConfig::CONFIG['target_os'] =~ /darwin/i
+      #   gem 'rb-fsevent', '>= 0.3.9'
+      #   gem 'growl',      '~> 1.0.3'
+      # end
+      # if RbConfig::CONFIG['target_os'] =~ /linux/i
+      #   gem 'rb-inotify', '>= 0.5.1'
+      #   gem 'libnotify',  '~> 0.1.3'
+      #   gem 'therubyracer', '~> 0.9.9'
+      # end
     end
   end
 
   platforms :jruby do
     unless ENV['TRAVIS']
-      require 'rbconfig'
-      if RbConfig::CONFIG['target_os'] =~ /darwin/i
-        gem 'growl',      '~> 1.0.3'
-      end
-      if RbConfig::CONFIG['target_os'] =~ /linux/i
-        gem 'rb-inotify', '>= 0.5.1'
-        gem 'libnotify',  '~> 0.1.3'
-      end
+      # require 'rbconfig'
+      # if RbConfig::CONFIG['target_os'] =~ /darwin/i
+      #   gem 'growl',      '~> 1.0.3'
+      # end
+      # if RbConfig::CONFIG['target_os'] =~ /linux/i
+      #   gem 'rb-inotify', '>= 0.5.1'
+      #   gem 'libnotify',  '~> 0.1.3'
+      # end
     end
   end
 
