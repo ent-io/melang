@@ -1,8 +1,10 @@
-class AppsController < ApplicationController
+  class AppsController < ApplicationController
+  
   # GET /apps
   # GET /apps.json
   def index
-    @apps = App.all
+    @apps = App.with_role(:owner, current_user)     
+    # @apps = App.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,6 +16,9 @@ class AppsController < ApplicationController
   # GET /apps/1.json
   def show
     @app = App.find(params[:id])
+
+    # check if user is owner
+    check_owner(@app)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -35,6 +40,8 @@ class AppsController < ApplicationController
   # GET /apps/1/edit
   def edit
     @app = App.find(params[:id])
+    
+    check_owner(@app)
   end
 
   # POST /apps
@@ -44,6 +51,8 @@ class AppsController < ApplicationController
 
     respond_to do |format|
       if @app.save
+        assign_owner(@app)
+
         format.html { redirect_to @app, notice: 'App was successfully created.' }
         format.json { render json: @app, status: :created, location: @app }
       else
@@ -57,6 +66,8 @@ class AppsController < ApplicationController
   # PUT /apps/1.json
   def update
     @app = App.find(params[:id])
+
+    check_owner(@app)
 
     respond_to do |format|
       if @app.update_attributes(params[:app])
@@ -73,6 +84,9 @@ class AppsController < ApplicationController
   # DELETE /apps/1.json
   def destroy
     @app = App.find(params[:id])
+
+    check_owner(@app)
+
     @app.destroy
 
     respond_to do |format|
@@ -80,4 +94,18 @@ class AppsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  
+  
+  def assign_owner(app)
+    current_user.add_role(:owner, app)
+   end
+
+  def check_owner(app)
+    unless current_user.owner?(app)
+      redirect_to apps_path, notice: "You don't have access to that app" && return      
+    end
+  end
+
+     
 end

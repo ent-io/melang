@@ -50,6 +50,14 @@ class User < ActiveRecord::Base
     pending_any_confirmation {yield}
   end
 
+  def owner?(resource)
+    self.has_role?(:owner, resource)
+  end
+
+  def assign_owner(resource)
+    self.add_role(:owner, resource)
+  end
+
   private
 
   def add_user_to_mailchimp
@@ -70,5 +78,4 @@ class User < ActiveRecord::Base
       Rails.logger.info("MAILCHIMP UNSUBSCRIBE: result #{result.inspect} for #{self.email}")
     end
   end
-
 end
