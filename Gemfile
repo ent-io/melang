@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'rails', '3.2.8'
 
@@ -21,7 +21,7 @@ gem 'slim',                     '>= 1.3.0'
 
 group :production do
   platforms :ruby do
-    gem 'thin',                   '>= 1.4.1'
+    # gem 'thin',                   '>= 1.4.1'
     gem 'pg'
   end
 
@@ -56,11 +56,12 @@ group :development, :test do
 
   unless defined?(JRUBY_VERSION)
     gem 'sqlite3'
-    gem 'mysql2'
-    gem 'pg'
+    # gem 'mysql2'
+    # gem 'pg'
   end
 
   platforms :mswin, :mingw do
+    gem 'eventmachine', '1.0.0.beta.4.1'
     gem 'win32console'
     gem 'rb-fchange', '~> 0.0.5'
     gem 'rb-notifu', '~> 0.0.4'
