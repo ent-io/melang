@@ -18,7 +18,7 @@ class App < ActiveRecord::Base
       :with     => /\A[a-z][a-z0-9]*([\-]{1}[a-z0-9]+)*\z/
     }
 
-  # Before saving, ensure that resource has resource owner
+  # use rolify methods to check for :owner role
   def has_owner?
     self.roles.map(&:name).include?("owner")
   end
@@ -26,5 +26,4 @@ class App < ActiveRecord::Base
   def to_dns
     "#{name}.#{DOMAIN}"
   end
-
 end

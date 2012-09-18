@@ -39,10 +39,6 @@ describe App do
     context 'associations' do
       it { should have_one(:bucket).dependent(:destroy) }
     end
-
-    context 'attributes' do
-      it { should have_readonly_attribute(:name) }
-    end
   end
 
   context 'ActiveModel' do
