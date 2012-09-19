@@ -4,7 +4,6 @@
   # GET /apps.json
   def index
     @apps = App.with_role(:owner, current_user)     
-    # @apps = App.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -18,7 +17,7 @@
     @app = App.find(params[:id])
 
     # check if user is owner
-    check_owner(@app)
+    redirect_to apps_path(:notice => "You don't have access to this resource") and return unless current_user.owner?(@app)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -30,6 +29,7 @@
   # GET /apps/new.json
   def new
     @app = App.new
+    @app.owner = current_user
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,18 +41,18 @@
   def edit
     @app = App.find(params[:id])
     
-    check_owner(@app)
+    # check if user is owner
+    redirect_to apps_path(:notice => "You don't have access to this resource") and return unless current_user.owner?(@app)
   end
 
   # POST /apps
   # POST /apps.json
   def create
     @app = App.new(params[:app])
+    @app.owner = current_user unless @app.has_owner?
 
     respond_to do |format|
       if @app.save
-        assign_owner(@app)
-
         format.html { redirect_to @app, notice: 'App was successfully created.' }
         format.json { render json: @app, status: :created, location: @app }
       else
@@ -67,7 +67,8 @@
   def update
     @app = App.find(params[:id])
 
-    check_owner(@app)
+    # check if user is owner
+    redirect_to apps_path(:notice => "You don't have access to this resource") and return unless current_user.owner?(@app)
 
     respond_to do |format|
       if @app.update_attributes(params[:app])
@@ -85,7 +86,8 @@
   def destroy
     @app = App.find(params[:id])
 
-    check_owner(@app)
+    # check if user is owner
+    redirect_to apps_path(:notice => "You don't have access to this resource") and return unless current_user.owner?(@app)
 
     @app.destroy
 
@@ -94,18 +96,4 @@
       format.json { head :no_content }
     end
   end
-
-  
-  
-  def assign_owner(app)
-    current_user.add_role(:owner, app)
-   end
-
-  def check_owner(app)
-    unless current_user.owner?(app)
-      redirect_to apps_path, notice: "You don't have access to that app" && return      
-    end
-  end
-
-     
 end

@@ -3,6 +3,10 @@ require 'spec_helper'
 
 describe App do
 
+  before(:all) do
+    @user = FactoryGirl.create(:user)
+  end
+
   context 'ActiveRecord' do
     context 'columns' do
       it { should
@@ -45,7 +49,11 @@ describe App do
     context 'validations' do
       it { should validate_presence_of(:name) }
 
-      let!(:app) { FactoryGirl.create(:app) }
+      let!(:app) { 
+        app = FactoryGirl.build(:app) 
+        app.owner = @user
+        app.save!
+      }
       it { should validate_uniqueness_of(:name) }
     end
   end
@@ -70,7 +78,7 @@ describe App do
       it { should allow_value('abc-123').for(:name) }
       it { should_not allow_value('192-168-5-4').for(:name) }
     end
-
+    
     context 'contains dots' do
       it { should_not allow_value('abc.123').for(:name) }
     end
@@ -96,12 +104,13 @@ describe App do
       it { should_not allow_value('-abc123').for(:name) }
 
       # names that begin with `goog` are forbidden by Google Cloud Storage
-      pending 'such as `goog`' do
-        should_not allow_value('google').for(:name)
-      end
+      it { should_not allow_value('google').for(:name) } 
     end
+    
     context 'ends with a forbidden postfix' do
       it { should_not allow_value('abc123-').for(:name) }
     end
+
+
   end
 end

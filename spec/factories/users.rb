@@ -10,3 +10,13 @@ FactoryGirl.define do
     confirmed_at Time.now
   end
 end
+
+FactoryGirl.define do
+  factory :user2, :class => :user do
+    name 'Second User'
+    email 'second@eample.com'
+    password 'second'
+    password_confirmation 'second'
+    confirmed_at Time.now
+  end
+end

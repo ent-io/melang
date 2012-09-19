@@ -4,7 +4,7 @@ describe HomeController do
 
 	describe 'authenticated user' do
 	  login_user
-	  
+
 	  describe "GET 'index'" do
 	    it "should be successful" do
 	      get 'index'
