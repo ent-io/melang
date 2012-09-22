@@ -1,6 +1,7 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'rails', '3.2.8'
+gem "jruby-openssl", :platforms => :jruby
 
 group :assets do
   gem 'sass-rails',             '~> 3.2.3'
@@ -35,8 +36,7 @@ end
 group :development do
   gem 'guard-rspec',            '>= 1.2.1'
   gem 'launchy',                '>= 2.1.2'
-  gem 'ruby-debug',             '>= 0.10.4',  :platform => :mri_18
-  gem 'debugger',               '>= 1.2.0',   :platform => :mri_19
+  gem 'simplecov'
 end
 
 group :development, :test do
@@ -47,8 +47,10 @@ group :development, :test do
   gem 'rspec-rails',            '>= 2.11.0'
   gem 'fuubar',                 '>= 1.0.0'
   gem 'factory_girl_rails',     '>= 4.0.0'
-  gem 'shoulda-matchers',       '>= 1.3.0'
-
+  # gem 'shoulda-matchers',       '>= 1.3.0'
+  gem 'shoulda-matchers',
+    :git    => 'git://github.com/thoughtbot/shoulda-matchers.git',
+    :branch => 'jd-fix-ensure-inclusion-matcher'
 
   platforms :jruby do
     gem 'activerecord-jdbcsqlite3-adapter'
