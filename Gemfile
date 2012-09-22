@@ -1,7 +1,6 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.2.8'
-gem "jruby-openssl", :platforms => :jruby
 
 group :assets do
   gem 'sass-rails',             '~> 3.2.3'
@@ -36,6 +35,8 @@ end
 group :development do
   gem 'guard-rspec',            '>= 1.2.1'
   gem 'launchy',                '>= 2.1.2'
+  gem 'ruby-debug',             '>= 0.10.4',  :platform => :mri_18
+  gem 'debugger',               '>= 1.2.0',   :platform => :mri_19
   gem 'simplecov'
 end
 
