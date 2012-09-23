@@ -1,20 +1,24 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+# gem 'rails', '3.2.8'
+gem 'rails',  :git => 'git://github.com/rails/rails.git'
+gem 'activerecord-deprecated_finders',  :git => 'git://github.com/rails/activerecord-deprecated_finders.git'
+gem 'journey', :git => 'git://github.com/rails/journey.git'
 
 group :assets do
-  gem 'sass-rails',             '~> 3.2.3'
-  gem 'coffee-rails',           '~> 3.2.1'
+  gem 'sass-rails',           :git => 'git://github.com/rails/sass-rails.git'
+  gem 'coffee-rails',         :git => 'git://github.com/rails/coffee-rails.git'
+
   gem 'uglifier',               '>= 1.0.3'
 end
 
 gem 'jquery-rails'
 gem 'bootstrap-sass',           '>= 2.1.0.0'
 gem 'hominid',                  '>= 3.0.5'
-gem 'devise',                   '>= 2.1.2'
+gem 'devise', :path => '../gems/devise'
 gem 'cancan',                   '>= 1.6.8'
 gem 'rolify',                   '>= 3.2.0'
-gem 'simple_form',              '>= 2.0.2'
+gem 'simple_form', :path => '../gems/simple_form'
 gem 'google_visualr',           '>= 2.1.2'
 gem 'jquery-datatables-rails',  '>= 1.11.0'
 gem 'slim',                     '>= 1.3.0'
@@ -53,12 +57,12 @@ group :development, :test do
     :git    => 'git://github.com/thoughtbot/shoulda-matchers.git',
     :branch => 'jd-fix-ensure-inclusion-matcher'
 
-  platforms :jruby do
-    gem 'activerecord-jdbcsqlite3-adapter'
-    gem 'activerecord-jdbcmysql-adapter'
-    gem 'activerecord-jdbcpostgresql-adapter'
-    gem 'jruby-openssl'
-  end
+  # platforms :jruby do
+  #   gem 'activerecord-jdbcsqlite3-adapter'
+  #   gem 'activerecord-jdbcmysql-adapter'
+  #   gem 'activerecord-jdbcpostgresql-adapter'
+  #   gem 'jruby-openssl'
+  # end
 
   unless defined?(JRUBY_VERSION)
     gem 'sqlite3'
