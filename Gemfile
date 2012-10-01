@@ -50,8 +50,7 @@ group :development, :test do
   gem 'factory_girl_rails',     '>= 4.0.0'
   # gem 'shoulda-matchers',       '>= 1.3.0'
   gem 'shoulda-matchers',
-    :git    => 'git://github.com/thoughtbot/shoulda-matchers.git',
-    :branch => 'jd-fix-ensure-inclusion-matcher'
+    :git    => 'git://github.com/thoughtbot/shoulda-matchers.git'
 
   platforms :jruby do
     gem 'activerecord-jdbcsqlite3-adapter'
