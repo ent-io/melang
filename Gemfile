@@ -20,15 +20,13 @@ gem 'jquery-datatables-rails',  '>= 1.11.0'
 gem 'slim',                     '>= 1.3.0'
 gem 'fog',                      '>= 1.5.0'
 
-group :production do
-  platforms :ruby do
-    gem 'thin',                   '>= 1.4.1'
-    gem 'pg'
-  end
+# Use the correct web server for the current platform.
+gem 'thin',               :require => false,  :platforms => :ruby
+gem 'trinidad',           :require => false,  :platforms => :jruby
 
-  platforms :jruby do
-    gem 'trinidad', :require => nil
-  end
+group :production do
+  gem 'pg',                                   :platforms => :ruby
+  gem 'activerecord-jdbcpostgresql-adapter',  :platforms => :jruby
   gem 'newrelic_rpm'
 end
 
@@ -38,6 +36,20 @@ group :development do
   gem 'ruby-debug',             '>= 0.10.4',  :platform => :mri_18
   gem 'debugger',               '>= 1.2.0',   :platform => :mri_19
   gem 'simplecov'
+  gem 'mailcatcher'
+
+  # Send system notifications on Linux, OSX, and Windows
+  # with Growl >= 1.3, Growl for Linux/Windows, and Snarl
+  gem 'ruby_gntp'
+
+  # Watch file change events instead of polling
+  gem 'rb-fsevent', :require => false, :group => :darwin              # OSX
+  gem 'rb-inotify', :require => false, :group => :linux               # Linux
+  gem 'wdm',        :require => false, :platforms => [:mswin, :mingw] # Windows
+  # See https://github.com/carlhuda/bundler/wiki/Platform-as-a-parameter
+
+  # Color terminal output on Windows
+  gem 'win32console', :platforms => [:mswin, :mingw] 
 end
 
 group :development, :test do
@@ -48,8 +60,7 @@ group :development, :test do
   gem 'rspec-rails',            '>= 2.11.0'
   gem 'fuubar',                 '>= 1.0.0'
   gem 'factory_girl_rails',     '>= 4.0.0'
-  # gem 'shoulda-matchers',       '>= 1.3.0'
-  gem 'shoulda-matchers',
+  gem 'shoulda-matchers',     # '>= 1.3.1' not yet released
     :git    => 'git://github.com/thoughtbot/shoulda-matchers.git'
 
   platforms :jruby do
@@ -59,48 +70,9 @@ group :development, :test do
     gem 'jruby-openssl'
   end
 
-  unless defined?(JRUBY_VERSION)
+  platforms :ruby do
     gem 'sqlite3'
     gem 'mysql2'
     gem 'pg'
   end
-
-  platforms :mswin, :mingw do
-    gem 'win32console'
-    gem 'rb-fchange', '~> 0.0.5'
-    gem 'rb-notifu', '~> 0.0.4'
-  end
-
-  platforms :ruby do
-    gem 'spork', '0.9.0.rc9'
-    gem 'guard-spork'
-    unless ENV['TRAVIS']
-      gem 'mailcatcher'
-      
-      # require 'rbconfig'
-      # if RbConfig::CONFIG['target_os'] =~ /darwin/i
-      #   gem 'rb-fsevent', '>= 0.3.9'
-      #   gem 'growl',      '~> 1.0.3'
-      # end
-      # if RbConfig::CONFIG['target_os'] =~ /linux/i
-      #   gem 'rb-inotify', '>= 0.5.1'
-      #   gem 'libnotify',  '~> 0.1.3'
-      #   gem 'therubyracer', '~> 0.9.9'
-      # end
-    end
-  end
-
-  platforms :jruby do
-    unless ENV['TRAVIS']
-      # require 'rbconfig'
-      # if RbConfig::CONFIG['target_os'] =~ /darwin/i
-      #   gem 'growl',      '~> 1.0.3'
-      # end
-      # if RbConfig::CONFIG['target_os'] =~ /linux/i
-      #   gem 'rb-inotify', '>= 0.5.1'
-      #   gem 'libnotify',  '~> 0.1.3'
-      # end
-    end
-  end
-
 end
