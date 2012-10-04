@@ -21,7 +21,7 @@ gem 'slim',                     '>= 1.3.0'
 gem 'fog',                      '>= 1.5.0'
 
 # Use the correct web server for the current platform.
-gem 'thin',               :require => false,  :platforms => :ruby
+gem 'unicorn',            :require => false,  :platforms => :ruby
 gem 'trinidad',           :require => false,  :platforms => :jruby
 
 group :production do
@@ -36,7 +36,9 @@ group :development do
   gem 'ruby-debug',             '>= 0.10.4',  :platform => :mri_18
   gem 'debugger',               '>= 1.2.0',   :platform => :mri_19
   gem 'simplecov'
-  gem 'mailcatcher'
+
+  # Mailcatcher requires Thin, which causes issues on some platforms
+  # gem 'mailcatcher' 
 
   # Send system notifications on Linux, OSX, and Windows
   # with Growl >= 1.3, Growl for Linux/Windows, and Snarl
@@ -50,6 +52,10 @@ group :development do
 
   # Color terminal output on Windows
   gem 'win32console', :platforms => [:mswin, :mingw] 
+
+  # Run declared app processes
+  gem 'foreman'
+  # See http://blog.daviddollar.org/2011/05/06/introducing-foreman.html
 end
 
 group :development, :test do
