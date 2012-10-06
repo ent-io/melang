@@ -1,10 +1,3 @@
-GIT
-  remote: git://github.com/thoughtbot/shoulda-matchers.git
-  revision: ddcd0f5e7d6218957881162e10297be3566704b9
-  specs:
-    shoulda-matchers (1.3.0)
-      activesupport (>= 3.0.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -49,6 +42,7 @@ GEM
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-java)
+    bcrypt-ruby (3.0.1-x86-mingw32)
     bootstrap-sass (2.1.0.0)
     bouncy-castle-java (1.5.0146.1)
     builder (3.0.3)
@@ -79,6 +73,7 @@ GEM
       capybara (>= 1.1.2)
       cucumber (>= 1.1.8)
       nokogiri (>= 1.5.0)
+    daemons (1.1.9)
     database_cleaner (0.8.0)
     debugger (1.2.0)
       columnize (>= 0.3.1)
@@ -97,6 +92,7 @@ GEM
       mail (~> 2.2)
       rspec (~> 2.0)
     erubis (2.7.0)
+    eventmachine (1.0.0)
     excon (0.16.4)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -107,6 +103,7 @@ GEM
       railties (>= 3.0.0)
     ffi (1.1.5)
     ffi (1.1.5-java)
+    ffi (1.1.5-x86-mingw32)
     fog (1.6.0)
       builder
       excon (~> 0.14)
@@ -128,6 +125,8 @@ GEM
       json (>= 1.4.6)
     gherkin (2.11.2-java)
       json (>= 1.4.6)
+    gherkin (2.11.2-x86-mingw32)
+      json (>= 1.4.6)
     google_visualr (2.1.3)
     guard (1.4.0)
       listen (>= 0.4.2)
@@ -135,6 +134,7 @@ GEM
     guard-rspec (2.0.0)
       guard (>= 1.1)
       rspec (~> 2.11)
+    haml (3.1.7)
     hike (1.2.1)
     hominid (3.0.5)
     i18n (0.6.1)
@@ -170,6 +170,15 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    mailcatcher (0.5.10)
+      activesupport (~> 3.0)
+      eventmachine (~> 1.0.0)
+      haml (~> 3.1)
+      mail (~> 2.3)
+      sinatra (~> 1.2)
+      skinny (~> 0.2.3)
+      sqlite3 (~> 1.3)
+      thin (~> 1.5.0)
     mime-types (1.19)
     multi_json (1.3.6)
     mysql2 (0.3.11)
@@ -180,12 +189,16 @@ GEM
     newrelic_rpm (3.4.2.1)
     nokogiri (1.5.5)
     nokogiri (1.5.5-java)
+    nokogiri (1.5.5-x86-mingw32)
     orm_adapter (0.4.0)
     pg (0.14.1)
+    pg (0.14.1-x86-mingw32)
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
+    rack-protection (1.2.0)
+      rack
     rack-ssl (1.3.2)
       rack
     rack-test (0.6.2)
@@ -247,6 +260,8 @@ GEM
       libwebsocket (~> 0.1.3)
       multi_json (~> 1.0)
       rubyzip
+    shoulda-matchers (1.4.0)
+      activesupport (>= 3.0.0)
     simple_form (2.0.3)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
@@ -254,6 +269,13 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
+    sinatra (1.3.3)
+      rack (~> 1.3, >= 1.3.6)
+      rack-protection (~> 1.2)
+      tilt (~> 1.3, >= 1.3.3)
+    skinny (0.2.3)
+      eventmachine (~> 1.0.0)
+      thin (~> 1.5.0)
     slim (1.3.2)
       temple (~> 0.5.0)
       tilt (~> 1.3.3)
@@ -263,7 +285,12 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.6)
+    sqlite3 (1.3.6-x86-mingw32)
     temple (0.5.4)
+    thin (1.5.0)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
     thor (0.16.0)
     tilt (1.3.3)
     treetop (1.4.10)
@@ -283,12 +310,15 @@ GEM
       raindrops (~> 0.7)
     warden (1.2.1)
       rack (>= 1.0)
+    wdm (0.0.3)
+    win32console (1.3.2-x86-mingw32)
     xpath (0.1.4)
       nokogiri (~> 1.3)
 
 PLATFORMS
   java
   ruby
+  x86-mingw32
 
 DEPENDENCIES
   activerecord-jdbcmysql-adapter
@@ -314,6 +344,7 @@ DEPENDENCIES
   jquery-rails
   jruby-openssl
   launchy (>= 2.1.2)
+  mailcatcher
   mysql2
   newrelic_rpm
   pg
@@ -325,7 +356,7 @@ DEPENDENCIES
   ruby-debug (>= 0.10.4)
   ruby_gntp
   sass-rails (~> 3.2.3)
-  shoulda-matchers!
+  shoulda-matchers (>= 1.4.0)
   simple_form (>= 2.0.2)
   simplecov
   slim (>= 1.3.0)

@@ -24,34 +24,34 @@ gem 'fog',                      '>= 1.5.0'
 gem 'unicorn',            :require => false,  :platforms => :ruby
 gem 'trinidad',           :require => false,  :platforms => :jruby
 
+# Example configuration for Heroku (mri ruby, postgresql)
 group :production do
   gem 'pg',                                   :platforms => :ruby
-  gem 'activerecord-jdbcpostgresql-adapter',  :platforms => :jruby
   gem 'newrelic_rpm'
 end
 
 group :development do
   gem 'guard-rspec',            '>= 1.2.1'
   gem 'launchy',                '>= 2.1.2'
-  gem 'ruby-debug',             '>= 0.10.4',  :platform => :mri_18
-  gem 'debugger',               '>= 1.2.0',   :platform => :mri_19
+  gem 'ruby-debug',             '>= 0.10.4',  :platforms => :mri_18
+  gem 'debugger',               '>= 1.2.0',   :platforms => :mri_19
   gem 'simplecov'
 
-  # Mailcatcher requires Thin, which causes issues on some platforms
-  # gem 'mailcatcher' 
+  # Mailcatcher dependencies causes issues on some platforms
+  gem 'mailcatcher',                          :platforms => :ruby
 
   # Send system notifications on Linux, OSX, and Windows
   # with Growl >= 1.3, Growl for Linux/Windows, and Snarl
   gem 'ruby_gntp'
 
   # Watch file change events instead of polling
-  gem 'rb-fsevent', :require => false, :group => :darwin              # OSX
-  gem 'rb-inotify', :require => false, :group => :linux               # Linux
-  gem 'wdm',        :require => false, :platforms => [:mswin, :mingw] # Windows
+  gem 'rb-fsevent', :require => false,        :group => :darwin              # OSX
+  gem 'rb-inotify', :require => false,        :group => :linux               # Linux
+  gem 'wdm',        :require => false,        :platforms => [:mswin, :mingw] # Windows
   # See https://github.com/carlhuda/bundler/wiki/Platform-as-a-parameter
 
   # Color terminal output on Windows
-  gem 'win32console', :platforms => [:mswin, :mingw] 
+  gem 'win32console',                         :platforms => [:mswin, :mingw] 
 
   # Run declared app processes
   gem 'foreman'
@@ -66,8 +66,8 @@ group :development, :test do
   gem 'rspec-rails',            '>= 2.11.0'
   gem 'fuubar',                 '>= 1.0.0'
   gem 'factory_girl_rails',     '>= 4.0.0'
-  gem 'shoulda-matchers',     # '>= 1.3.1' not yet released
-    :git    => 'git://github.com/thoughtbot/shoulda-matchers.git'
+  gem 'shoulda-matchers',       '>= 1.4.0'
+  #  :git    => 'git://github.com/thoughtbot/shoulda-matchers.git'
 
   platforms :jruby do
     gem 'activerecord-jdbcsqlite3-adapter'
@@ -81,4 +81,11 @@ group :development, :test do
     gem 'mysql2'
     gem 'pg'
   end
+
+  platforms :mswin, :mingw do
+    gem 'sqlite3'
+    # gem 'mysql2' # requires libmysql2.dll
+    gem 'pg'
+  end
+
 end
