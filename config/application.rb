@@ -74,5 +74,9 @@ module Melang
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # For Unicorn compatibility
+    # config.logger = Logger.new(STDOUT)
+    # config.logger.level = Logger.const_get(ENV['LOG_LEVEL'] ? ENV['LOG_LEVEL'].upcase : 'INFO')
   end
 end
