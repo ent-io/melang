@@ -12,5 +12,5 @@ Melang::Application.routes.draw do
     get 'invite', :on => :member
   end
   
-  match '/auth/:provider/callback' => 'home#auth'
+  match '/auth/:provider/callback' => 'home#authorize'
 end
