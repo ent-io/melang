@@ -19,6 +19,7 @@ gem 'google_visualr',           '>= 2.1.2'
 gem 'jquery-datatables-rails',  '>= 1.11.0'
 gem 'slim',                     '>= 1.3.0'
 gem 'fog',                      '>= 1.5.0'
+gem 'state_machine',            '~> 1.1.2'
 
 # Use the correct web server for the current platform.
 gem 'unicorn',            :require => false,  :platforms => :ruby
