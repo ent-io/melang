@@ -22,6 +22,10 @@ describe Bucket do
       it { should have_db_column(:updated_at).of_type(:datetime).with_options(
         :null => false
       ) }
+      it { should have_db_column(:state).of_type(:integer).with_options(
+        :default => 0,
+        :null => false
+      ) }
     end
 
     context 'indices' do
@@ -53,18 +57,18 @@ describe Bucket do
   context '#storage' do
     context 'service exists' do
       let(:bucket) { FactoryGirl.create(:bucket) }
-      it { bucket.storage.key.should == bucket.name }
+      pending { bucket.storage.should be_kind_of(Fog::Storage::Google::Directory) }
     end
     context 'service does not exist' do
       it 'before save' do
         bucket = FactoryGirl.build(:bucket)
         bucket.storage.should be_nil
       end
-      it 'after destroy' do
+      pending 'after destroy' do
         bucket = FactoryGirl.create(:bucket)
         bucket.save
-        bucket.storage.should_not be_nil
-        bucket.send(:delete_bucket)
+        bucket.storage.should be_kind_of(Fog::Storage::Google::Directory)
+        bucket.destroy
         bucket.storage.should be_nil
       end
     end

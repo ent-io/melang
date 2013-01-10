@@ -11,11 +11,41 @@ class Bucket < ActiveRecord::Base
     :presence   =>  :true,
     :uniqueness =>  :true
 
-  before_create     :put_bucket
-  before_destroy    :delete_bucket
+  after_create      :provision, :configure
+  before_destroy    :delete_bucket_files, :remove
+  
+  state_machine :state, :initial => :removed do
+    state :removed,     :value => 0   # bucket does not exist
+    state :provisioned, :value => 1   # bucket exists
+    state :configured,  :value => 2   # a webcfg has been applied to bucket
+    state :deployed,    :value => 3   # data has been uploaded to the bucket
+
+    event :provision do
+      transition :removed => :provisioned
+    end
+    event :configure do
+      transition :provisioned => :configured
+    end
+    event :remove do
+      transition [:configured, :provisioned] => :removed
+    end
+    event :upload_files do
+      transition [:configured, :deployed] => :deployed
+    end
+    event :all_files_deleted do
+      transition [:deployed, :configured] => :configured
+    end
+
+    before_transition :removed  => :provisioned, 
+      :do => :put_bucket
+
+    before_transition [:configured, :provisioned] => :removed,
+      :do => :delete_bucket
+  end
 
   def storage
-    @storage ||= nil
+    return nil if self.removed?
+    @storage ||= connection.directories.find(:name => self.name).first
   end
 
   private
@@ -30,23 +60,25 @@ class Bucket < ActiveRecord::Base
 
   # TODO(wenzowski): handle bucket creation errors
   def put_bucket
-    directory = connection.directories.create(
-      :key      =>  name,
+    @storage = connection.directories.create(
+      :key      =>  self.name,
       :public   =>  true
     )
-    @storage = directory
   end
 
-  # TODO(wenzowski): handle bucket destroy errors
-  # eg. 409 bucket not empty
-  # directory.files.each {|f| f.destroy}
+  def delete_bucket_files
+    self.storage.files.each {|f| f.destroy}
+    self.all_files_deleted
+  end
+
   def delete_bucket
-    directory = connection.directories.find(:name => name).first
-    directory.destroy
-    @storage = nil
+    self.storage.destroy
   end
 
   # TODO(wenzowski): set website configuration
   # https://developers.google.com/storage/docs/website-configuration
+  def put_bucket_webcfg
+    raise NotImplementedError
+  end
 
 end

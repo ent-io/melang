@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120908004000) do
+ActiveRecord::Schema.define(:version => 20130110214705) do
 
   create_table "apps", :force => true do |t|
     t.string   "name",       :limit => 63, :null => false
@@ -23,10 +23,11 @@ ActiveRecord::Schema.define(:version => 20120908004000) do
   add_index "apps", ["name"], :name => "index_apps_on_name", :unique => true
 
   create_table "buckets", :force => true do |t|
-    t.string   "name",       :null => false
-    t.integer  "app_id",     :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "name",                      :null => false
+    t.integer  "app_id",                    :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.integer  "state",      :default => 0, :null => false
   end
 
   add_index "buckets", ["app_id"], :name => "index_buckets_on_app_id", :unique => true
