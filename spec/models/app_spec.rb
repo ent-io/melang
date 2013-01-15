@@ -110,7 +110,10 @@ describe App do
     context 'ends with a forbidden postfix' do
       it { should_not allow_value('abc123-').for(:name) }
     end
+  end
 
-
+  context '#auto_create_bucket' do
+    let(:app) { FactoryGirl.create(:app) }
+    it { app.bucket.should be_kind_of Bucket }
   end
 end

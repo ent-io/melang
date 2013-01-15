@@ -23,6 +23,10 @@ after_fork do |server, worker|
     Rails.logger.info('Connected to ActiveRecord')
   end
 
+  if defined?(UUID)
+    UUID.generator.next_sequence
+  end
+
   # If you are using Redis but not Resque, change this
   # if defined?(Resque)
   #   Resque.redis = ENV['REDIS_URI']

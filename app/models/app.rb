@@ -5,8 +5,6 @@ class App < ActiveRecord::Base
   
   has_one :bucket, :dependent => :destroy
 
-  DOMAIN = 'cli.ent.io'
-
   validates :name,
     :presence   => :true,
     :uniqueness => :true,
@@ -23,7 +21,7 @@ class App < ActiveRecord::Base
     }
 
   before_save :ensure_owner!
-  after_save :set_owner
+  after_save :set_owner, :auto_create_bucket
 
   # Runs before ActiveRecord#save. Ensures resource has owner.
   def ensure_owner!
@@ -46,6 +44,16 @@ class App < ActiveRecord::Base
   end
 
   def to_dns
-    "#{name}.#{DOMAIN}"
+    "#{name}.#{Melang::APP_DOMAIN}"
+  end
+
+  def create_bucket
+    self.bucket = Bucket.new
+  end
+
+  private
+
+  def auto_create_bucket
+    self.create_bucket unless self.bucket
   end
 end

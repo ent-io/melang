@@ -41,8 +41,17 @@ class Bucket < ActiveRecord::Base
   end
   after_create      :provision, :configure
   before_destroy    :delete_all_files, :remove
-  
+  after_initialize  :init
+
   private
+
+  def init
+    self.name ||= "#{uuid.generate}.#{Melang::BUCKET_DOMAIN}"
+  end
+
+  def uuid
+    @uuid ||= UUID.new
+  end
 
   def fog_connection
     @fog_connection ||= Fog::Storage.new({
