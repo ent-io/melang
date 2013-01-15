@@ -57,19 +57,19 @@ describe Bucket do
   context '#storage' do
     context 'service exists' do
       let(:bucket) { FactoryGirl.create(:bucket) }
-      pending { bucket.storage.should be_kind_of(Fog::Storage::Google::Directory) }
+      pending { bucket.send(:fog_directory).should be_kind_of(Fog::Storage::Google::Directory) }
     end
     context 'service does not exist' do
       it 'before save' do
         bucket = FactoryGirl.build(:bucket)
-        bucket.storage.should be_nil
+        bucket.send(:fog_directory).should be_nil
       end
       pending 'after destroy' do
         bucket = FactoryGirl.create(:bucket)
         bucket.save
-        bucket.storage.should be_kind_of(Fog::Storage::Google::Directory)
+        bucket.send(:fog_directory).should be_kind_of(Fog::Storage::Google::Directory)
         bucket.destroy
-        bucket.storage.should be_nil
+        bucket.send(:fog_directory).should be_nil
       end
     end
   end
