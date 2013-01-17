@@ -46,5 +46,5 @@ Melang is released under the [MIT License].
 [ruby frameworks]: https://www.ruby-toolbox.com/categories/static_website_generation
 [Bundler]: http://gembundler.com/
 [Google Cloud Storage]: https://cloud.google.com/products/cloud-storage?utm_source=google&utm_medium=cpc&utm_campaign=cloudstorage-search
-[discussion]: http://news.ycombinator.com/item?id=4060491
+[HN discussion]: http://news.ycombinator.com/item?id=4060491
 [MIT License]: http://www.opensource.org/licenses/MIT
